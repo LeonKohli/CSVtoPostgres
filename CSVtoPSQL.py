@@ -9,6 +9,7 @@ from psycopg2.extras import RealDictCursor
 import time
 import os
 
+
 timestamp = time.strftime('%d.%m.%y.%H-%M-%S')
 
 
@@ -51,6 +52,8 @@ if table_exists and table_exists['exists']:
         conn.close()
         exit()
 
+start_time = time.perf_counter()
+
 
 
 
@@ -75,9 +78,13 @@ conn.commit()
 cur.close()
 conn.close()
 
+elapsed_time = time.perf_counter() - start_time
+
 # Write the INSERT statement to a text file
 with open(f"{log_dir}/{timestamp}insert_data.sql", "w") as f:
     for index, row in data.iterrows():
         values = ','.join(["'" + str(value).replace("'", "''") + "'" for value in row])
         query = f"INSERT INTO {table_name} VALUES ({values})"
         f.write(query + '\n')
+
+print(f"Script completed successfully in {elapsed_time:.2f} seconds.")
