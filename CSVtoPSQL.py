@@ -19,11 +19,11 @@ if not os.path.exists(log_dir):
     os.makedirs(log_dir)
 
 # Read the data from the CSV file
-data = pd.read_csv('src\dataseen.csv', delimiter=',')
+data = pd.read_csv('src\zuordnung_plz_ort.csv', delimiter=',')
 
 # Get the column names and data types from the data
 col_names = data.columns
-col_types = data.dtypes.astype(str).str.replace('object', 'text').str.replace('int', 'integer').str.replace('float', 'numeric').str.replace('bool', 'boolean').str.replace('datetime', 'timestamp with time zone').str.replace('numeric64', 'numeric')
+col_types = data.dtypes.astype(str).str.replace('object', 'text').str.replace('int', 'integer').str.replace('float', 'numeric').str.replace('bool', 'boolean').str.replace('datetime', 'timestamp with time zone').str.replace('numeric64', 'numeric').str.replace('integer64', 'integer')
 
 # Create a connection to the database
 conn = psycopg2.connect(
@@ -38,7 +38,7 @@ cur = conn.cursor(cursor_factory=RealDictCursor)
 
 
 # Check if the table exists and ask user if they want to drop it
-table_name = 'alle_badeseen'
+table_name = 'plz_ort'
 cur.execute("SELECT EXISTS(SELECT * FROM information_schema.tables WHERE table_name=%s)", (table_name,))
 table_exists = cur.fetchone()
 print(table_exists)

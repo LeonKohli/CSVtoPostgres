@@ -1,0 +1,1 @@
+CREATE TABLE plz_ort (OSM integer64, AGS integer64, Ort text, PLZ integer64, Landkreis text, Bundesland text)

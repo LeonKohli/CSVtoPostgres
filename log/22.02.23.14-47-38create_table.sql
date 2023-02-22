@@ -1,0 +1,1 @@
+CREATE TABLE plz_ort (1104550 integer64, 08335001 integer64, Aach text, 78267 integer64, Landkreis Konstanz text, Baden-Württemberg text)
